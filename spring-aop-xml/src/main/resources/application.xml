@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:aop="http://www.springframework.org/schema/aop"
+    xmlns:context="http://www.springframework.org/schema/context"
+    xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+        http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-4.0.xsd
+        http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.0.xsd">
+    <!-- 配置切面的bean -->
+    <bean id="logaspect" class="com.aop.aspect.LogAspect"></bean>   
+    <bean id="methodService" class="com.aop.service.DemoMethodService"></bean>   
+    
+
+    <!-- 配置AOP -->
+    <aop:config>
+        <!-- 配置切面表达式 -->
+        <aop:pointcut expression="execution(* com.aop.service.DemoMethodService.*(..))"
+         id="pointcut"/>
+        <!-- 配置切面和通知 
+             order：优先级,越小优先级越高-->
+        <aop:aspect ref="logaspect" order="1">
+            <aop:before method="before" pointcut-ref="pointcut"/>
+        </aop:aspect>
+        <aop:aspect ref="logaspect" order="2">
+            <aop:before method="after" pointcut-ref="pointcut"/>
+        </aop:aspect>
+    </aop:config>
+</beans>
