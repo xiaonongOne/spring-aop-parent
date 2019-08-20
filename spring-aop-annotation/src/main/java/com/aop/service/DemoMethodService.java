@@ -7,8 +7,6 @@ public class DemoMethodService {
 	
     public void add() {
         System.out.println("DemoMethodService.add()");
-        String[] str = {"1"};
-        System.out.println(str[5]);
     }
     
 }
